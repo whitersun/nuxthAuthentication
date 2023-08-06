@@ -1,0 +1,26 @@
+{
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "types": ["vue/ref-macros"],
+    "noImplicitAny":  false
+  },
+  "vueCompilerOptions": {
+    "types": ["vue/ref-macros"],
+    "exposeFilename": true,
+    "plugins": [
+      "@vue-macros/volar/define-options",
+      "@vue-macros/volar/define-models",
+      "@vue-macros/volar/define-props",
+      "@vue-macros/volar/define-props-refs",
+      "@vue-macros/volar/short-vmodel",
+      "@vue-macros/volar/define-slots",
+      "@vue-macros/volar/define-emits",
+      "@vue-macros/volar/define-async-data",
+      "@vue-macros/volar/define-fetch",
+      "@vue-macros/volar/define-async-setup",
+      "@vue-macros/volar/define-props-default",
+      "@vue-macros/volar/export-props",
+    ]
+  }
+}

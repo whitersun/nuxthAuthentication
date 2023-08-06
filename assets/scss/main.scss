@@ -1,0 +1,19 @@
+// Context from Function d:/web/fullstack/nuxtAuthentication/node_modules/.pnpm/@ampproject+remapping@2.2.1/node_modules/@ampproject/remapping/dist/remapping.mjs:SegmentObject
+// function SegmentObject(source, line, column, name, content) {
+//     return { source, line, column, name, content };
+// }
+
+$Lora: 'Lora', serif;
+
+body {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: $Lora;
+
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+input[type="password"] {
+    -webkit-text-security: square;
+}
