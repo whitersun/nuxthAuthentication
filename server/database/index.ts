@@ -1,5 +1,5 @@
-import { userProfile } from "../../models/profile";
-import { userInfo } from "../../models/user";
+import { userProfile } from "@/models/profile";
+import { userInfo } from "@/models/user";
 
 export {
     userInfo,

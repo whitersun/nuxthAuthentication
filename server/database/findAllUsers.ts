@@ -1,7 +1,7 @@
-import { userInfo } from "../../models/user";
+import { userProfile } from "@/models/profile";
 
 export default async function findAllUsers () {
-    const users = await userInfo.find({}).select('-password');;
+    const users = await userProfile.find({});
 
     return users;
 }

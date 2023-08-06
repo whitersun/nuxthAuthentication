@@ -1,6 +1,6 @@
 import addUser from "../../database/addUser";
 import findCurrentUser from "../../database/findCurrentUser";
-import { hash } from '../../../utils/password';
+import { hash } from '@/utils/password';
 
 export default defineEventHandler (async (event) => {
     const body = await readBody(event);

@@ -32,7 +32,6 @@ import { LazyUserRegisterSuccess } from '../../.nuxt/components';
 
 <template>
     <div class="containerWrapper w-full">
-        {{ registerSuccess }}
         <div class="block mt-4 ps-0 sm:ps-3">
             <h3 class="text-4xl text-center sm:text-start mt-2 mb-8 sm:mb-9 capitalize">Create your account now</h3>
             <UForm

@@ -1,9 +1,9 @@
-import { userInfo } from "../../models/user";
+import { userProfile } from "@/models/profile";
 
 export default async function findCurrentUser(req: string) {
     const email = req
 
-    const user = await userInfo.findOne({ email }).select('-password');
+    const user = await userProfile.findOne({ email })
 
     if (user) {
         return {

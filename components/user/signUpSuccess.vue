@@ -35,9 +35,11 @@ const lottieComplete = () => {
 
     console.log(anim.value);
 
-    setTimeout(() => {
+    setTimeout(async () => {
         open.value = false;
         router.go(0);
+
+        await refreshNuxtData()
     }, 5000);
 
     setInterval(() => {
