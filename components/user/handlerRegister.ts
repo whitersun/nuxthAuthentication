@@ -1,4 +1,3 @@
-// import { stateStore } from "../../utils/hookStore"
 import { object, string } from 'yup';
 
 type User = {
@@ -50,7 +49,7 @@ export const formValidate = () => {
                         const { data } = await useFetch('/api/auth/user?email=' + value);
                         
                         const info: any = toRaw(data.value);
-                        console.log(info.status);
+                        console.log(info);
 
                         return info.status === 409 ? false : true;
                     } else {
@@ -78,7 +77,7 @@ export const showHidePassword = (password: Ref<any>, show: Ref<Boolean>) => {
     }
 }
 
-export const signInHandler = async (form: Ref<any>) => {
+export const signUpHandler = async (form: Ref<any>) => {
     // TODO: Handle error first
     const formInfo = await form.value!.validate();
 

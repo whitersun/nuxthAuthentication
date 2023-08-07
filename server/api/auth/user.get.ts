@@ -5,11 +5,14 @@ export default defineEventHandler (async (event) => {
     const query = getQuery(event);
     
     function getUserData(user: any) {
-        const { _id, __v, password, ...userData } = user.data._doc;
+        const { _id, __v, ...userData } = user;
+
+        delete userData._doc._id;
+        delete userData._doc.__v;
 
         return {
             id: _id,
-            userData,
+            userData: userData._doc,
         };
     }
 
@@ -30,7 +33,7 @@ export default defineEventHandler (async (event) => {
         const email: any = query.email;
         const user = await findCurrentUser(email);
 
-        if (user.status === 'success') {
+        if (user !== null) {
             const result: any = getUserData(user);
 
             return {
