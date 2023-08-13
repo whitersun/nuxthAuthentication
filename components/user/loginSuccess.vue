@@ -1,5 +1,5 @@
 <template>
-    <UModal v-model:modelValue="open" :transition="false" prevent-close>
+    <UModal v-model:modelValue="open" prevent-close>
         <div class="registerSuccessContainer flex flex-col p-5 text-center">
             <LottieAnimation
                 ref="anim"

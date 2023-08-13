@@ -67,15 +67,11 @@ export const logInHandler = async (form: Ref<any>) => {
     const { error, loginSuccess } = loginTypes();
 
     // TODO: Declare schema
-    const { schema } = formValidate();
 
     const { email, password, remember } = formInfo;
 
-    const { data } = useFetch('/api/auth/user', {
+    const { data: info } = await useFetch('/api/auth/user', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
         body: JSON.stringify({
             email: email,
             password: password,
@@ -83,16 +79,15 @@ export const logInHandler = async (form: Ref<any>) => {
         })
     })
 
-    const info: any = toRaw(data.value);
-    console.log('info: ', info);
+    const res: any = toRaw(info.value);
 
-    if (info.status === 200) {
+    if (res.status === 200) {
         loginSuccess.value = true;
         return {
             status: 200,
             login: toRaw(loginSuccess.value)
         };
-    } else if (info.status === 401) {
+    } else if (res.status === 401) {
         error.value.email = 'Email not found';
         error.value.password = 'Password not found';
 

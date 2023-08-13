@@ -1,3 +1,58 @@
+<script setup lang="ts">
+import {
+    loginTypes,
+    formValidate,
+    logInHandler,
+    showHidePassword
+} from './handlerLogin'
+
+import { stateStore } from '@/utils/hookStore';
+
+const { stateSwitch } = stateStore();
+
+const formGroupLabelUI = 'block text-lg font-medium text-gray-700 dark:text-gray-200';
+
+const { state, form, loginSuccess, openModal, error } = loginTypes();
+const { schema } = formValidate();
+
+
+const emit =  defineEmits<{ (e: 'changeTo'): void, (e: 'changeToForgot') }>();
+const switchUserToForgotPassword = () => emit('changeToForgot');
+const changeToRegister = () => emit('changeTo');
+
+
+// TODO: Show hide password
+const passwordInput = ref();
+const showPassword = ref(false);
+const callBackShowHidePassword = () => {
+    return showHidePassword(passwordInput, showPassword);
+}
+
+const isOpen = (e: boolean) => {
+    console.log(e);
+
+    error.value.email = '';
+    error.value.password = '';
+
+    return openModal.value = e;
+}
+
+const callBackSubmit = async () => {
+    const response: any = await logInHandler(form);
+
+    if (response?.status === 200) {
+        return loginSuccess.value = true
+    } else {
+        openModal.value = true;
+
+        error.value.email = response?.login?.email;
+        error.value.password = response?.login?.password;
+
+        return error.value;
+    }
+}
+</script>
+
 <style lang="scss" scoped>
 .otherwise span {
     display: block;
@@ -73,7 +128,7 @@
                         :ui="{ 'label': { 'base': 'text-gray-700 dark:text-gray-200' } }"
                     />
 
-                    <UButton to="" variant="link">Forget Password?</UButton>
+                    <UButton @click="switchUserToForgotPassword" variant="link">Forget Password?</UButton>
                 </div>
 
                 <UButton
@@ -139,52 +194,8 @@
             </UForm>
         </div>
 
-        <LazyUserLoginError v-if="error.email || error.password" :error="error" />
+        <LazyUserLoginError v-if="error.email || error.password" @closeError="isOpen($event)" :error="error" />
         <LazyUserLoginSuccess v-if="loginSuccess" />
 
     </div>
 </template>
-
-<script setup lang="ts">
-import {
-    loginTypes,
-    formValidate,
-    logInHandler,
-    showHidePassword
-} from './handlerLogin'
-
-const formGroupLabelUI = 'block text-lg font-medium text-gray-700 dark:text-gray-200';
-
-const { state, form, loginSuccess, openModal, error } = loginTypes();
-const { schema } = formValidate();
-
-
-const emit =  defineEmits(['changeTo']);
-const changeToRegister = () => emit('changeTo');
-
-// TODO: Show hide password
-const passwordInput = ref();
-const showPassword = ref(false);
-const callBackShowHidePassword = () => {
-    return showHidePassword(passwordInput, showPassword);
-}
-
-const callBackSubmit = async () => {
-    const response: any = await logInHandler(form);
-
-    if (response?.status === 200) {
-        return loginSuccess.value = true
-    } else {
-        openModal.value = true;
-
-        error.value.email = response?.login?.email;
-        error.value.password = response?.login?.password;
-
-        return error.value;
-    }
-}
-</script>
-
-<style lang="scss" scoped>
-
-</style>

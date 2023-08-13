@@ -82,8 +82,9 @@
                 <div ref="formElement" class="flex items-start justify-start w-full h-screen" v-else>
                     <div class="formContainer max-w-lg w-full mx-auto relative">
                         <transition enter-active-class="fadeCustomIn" leave-active-class="fadeCustomOut">
-                            <LazyUserLogin v-if="!stateSwitch" @changeTo="switchUserForm" />
-                            <LazyUserRegister v-else @changeTo="switchUserForm" />
+                            <LazyUserLogin v-if="stateSwitch === 'login'" @changeTo="switchUserToRegister" @changeToForgot="switchUserToForgot" />
+                            <LazyUserRegister v-else-if="stateSwitch === 'register'" @changeTo="switchUserToLogin" />
+                            <LazyUserForgotPassword v-else @changeTo="switchUserToLogin" @changeToLogin="switchUserToLogin" />
                         </transition>
                     </div>
                 </div>
@@ -100,6 +101,7 @@ useHead({
 })
 
 const currentUser: any = ref({});
+
 const user = computed(() => {
     if (Object.keys(currentUser.value).length !== 0) {
         return currentUser.value
@@ -110,8 +112,18 @@ const user = computed(() => {
 
 const { stateSwitch } = stateStore();
 
-const switchUserForm = () => {
-    stateSwitch.value = !stateSwitch.value;
+const switchUserToRegister = () => {
+    stateSwitch.value = 'register';
+    return stateSwitch.value;
+}
+
+function switchUserToLogin () {
+    stateSwitch.value = 'login';
+    return stateSwitch.value;
+}
+
+const switchUserToForgot = () => {
+    stateSwitch.value = 'forgotPassword';
     return stateSwitch.value;
 }
 

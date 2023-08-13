@@ -2,8 +2,10 @@
 import { stateStore } from '@/utils/hookStore';
 const { user } = stateStore();
 
+const authUser = toRaw(user.value);
+
 const decidedLayout = () => {
-    if (user.value) {
+    if (authUser !== null) {
         return 'dashboard'
     } else {
         return 'authentication'

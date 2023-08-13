@@ -55,12 +55,12 @@ export default defineNuxtConfig({
   //   serviceKey: process.env.SUPABASE_SERVICE_KEY,
   // },
 
-  image: {
-    domains: ['https://source.unsplash.com', 'https://picsum.photos'],
+  ui: {
+    icons: ['mdi', 'line-md', 'mingcute'],    
   },
 
-  ui: {
-    icons: 'all'
+  image: {
+    domains: ['https://source.unsplash.com', 'https://picsum.photos'],
   },
 
   app: {

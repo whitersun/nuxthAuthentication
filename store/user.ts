@@ -1,28 +1,26 @@
 import {defineStore} from 'pinia'
+import { useLocalStorage } from '@vueuse/core'
 
-export const useUser = defineStore({
-    id: 'user-store',
-    state: () => {
-        return {
-            currentUser: null,
-            // currentUser: {
-            //     id: '',
-            //     email: '',
-            //     username: '',
-            //     avatar: '',
-            //     created_at: '',
-            //     updated_at: ''
-            // },
 
-            switchToForm: false 
-        }
-    },
-    actions: {
-        setUser(user: any) {
+export const useUser = defineStore('user', () => {
+    const currentUser = ref(
+        useLocalStorage('VueUseUser', null)
+    );
 
-        }
-    },
-    getters: {
-        getUser: state => state.currentUser
+    const switchToForm = ref('login');
+
+    const saveUser = (user: any) => {
+        currentUser.value = user;
+        return currentUser.value;
+    }
+
+    const getSwitchChange = computed(() => switchToForm.value);
+
+    return {
+        currentUser,
+        switchToForm,
+
+        // Actions
+        saveUser
     }
 })

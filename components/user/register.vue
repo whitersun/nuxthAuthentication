@@ -1,4 +1,40 @@
-import { LazyUserRegisterSuccess } from '../../.nuxt/components';
+<script setup lang="ts">
+import { 
+    formValidate,
+    registerTypes, 
+    showHidePassword, 
+    signUpHandler,
+} from './handlerRegister';
+
+const formGroupLabelUI = 'block text-lg font-medium text-gray-700 dark:text-gray-200';
+
+// TODO: declare types for emit
+const emit = defineEmits<{ (e: 'changeTo' ): void }>();
+const emitSwitchTo = () => emit('changeTo');
+
+// TODO: declare types for state models
+const { state, form, error, registerSuccess } = registerTypes();
+
+// TODO: declare types for form validate
+const { schema } = formValidate();
+
+
+// TODO: show/hide password
+const passwordInput = ref();
+const showPassword = ref(false);
+
+const callBackShowHidePassword = () => {
+    return showHidePassword(passwordInput, showPassword);
+}
+
+const callBackSubmit = async () => {
+    const response: any = await signUpHandler(form);
+    if (response.register === 'success') {
+        registerSuccess.value = response.modal;
+    }
+}
+</script>
+
 <style lang="scss" scoped>
 .otherwise span {
     display: block;
@@ -109,10 +145,6 @@ import { LazyUserRegisterSuccess } from '../../.nuxt/components';
                     </template>
                 </UButton>
 
-                <div class="otherwise my-5 text-center">
-                    <span>Or</span>
-                </div>
-
                 <div class="flex flex-row items-center justify-center mt-3">
                     <span class="text-gray-700 dark:text-gray-200 mr-2">You have an account?</span>
                     <UButton @click="emitSwitchTo" variant="link">Login now</UButton>
@@ -125,47 +157,3 @@ import { LazyUserRegisterSuccess } from '../../.nuxt/components';
         </template>
     </div>
 </template>
-
-<script setup lang="ts">
-import { 
-    formValidate,
-    registerTypes, 
-    showHidePassword, 
-    loginWithFacebook, 
-    signUpHandler,
-} from './handlerRegister';
-
-const formGroupLabelUI = 'block text-lg font-medium text-gray-700 dark:text-gray-200';
-
-// TODO: declare types for emit
-const emit = defineEmits(['changeTo']);
-const emitSwitchTo = () => emit('changeTo');
-
-// TODO: declare types for state models
-const { state, form, error, registerSuccess } = registerTypes();
-
-// TODO: declare types for form validate
-const { schema } = formValidate();
-
-
-// TODO: show/hide password
-const passwordInput = ref();
-const showPassword = ref(false);
-
-const callBackShowHidePassword = () => {
-    return showHidePassword(passwordInput, showPassword);
-}
-
-const callBackSubmit = async () => {
-    const response: any = await signUpHandler(form);
-    if (response.register === 'success') {
-        registerSuccess.value = response.modal;
-    }
-}
-
-
-</script>
-
-<style lang="scss" scoped>
-
-</style>

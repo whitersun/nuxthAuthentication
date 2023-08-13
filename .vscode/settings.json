@@ -3,7 +3,11 @@
         "composables",
         "heroicons",
         "hypernym",
+        "mingcute",
         "nuxthq",
-        "SUPABASE"
+        "sidebase",
+        "SUPABASE",
+        "twotone",
+        "vueuse"
     ]
 }
